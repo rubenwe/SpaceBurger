@@ -6,4 +6,5 @@ namespace Scritps.Food
     {
         public SpriteRenderer Renderer;
     }
+
 }

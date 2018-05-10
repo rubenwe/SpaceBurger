@@ -1,40 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Scritps.Environment;
-using Scritps.ReactiveScripts;
+using UnityEngine;
 
 namespace Scritps.Food
 {
-    public class Burger : IDish
+    public class Burger 
     {
-        public List<Ingredient> RequiredIngredients { get; private set; }
-        private readonly List<Ingredient> _curentIngredients;
-        
-        public Burger(List<Ingredient> requiredIngredients)
+        public List<Ingredient> CurentIngredients { get; private set; }
+
+        public Burger(List<Ingredient> ingredients)
         {
-            RequiredIngredients = requiredIngredients;
-            _curentIngredients = new List<Ingredient>();
+            CurentIngredients = ingredients;
         }
 
-        public List<Ingredient> GetMissingIngredients()
+        public void UpdateIngredientList(List<Ingredient> newIngredients)
         {
-            return RequiredIngredients.Except(_curentIngredients).ToList();
+            CurentIngredients = newIngredients;
         }
 
-        public bool TryToAdd(Ingredient ingredient)
+        public void Destroy()
         {
-            if (!RequiredIngredients.Contains(ingredient) || _curentIngredients.Contains(ingredient))
-            {
-                return false;
-            }
-
-            _curentIngredients.Add(ingredient);
-            return true;
+            Debug.Log("This burger will be destroyed");
         }
-    }
-
-    public interface IDish
-    {
-        List<Ingredient> RequiredIngredients { get; }
     }
 }

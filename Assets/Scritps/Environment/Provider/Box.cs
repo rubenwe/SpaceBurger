@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scritps.Environment.Provider
 {
-    public class Box : ITile, IResourceProvider
+    public class Box : ITile, IResourceContainer
     {
         public Vector2Int Position { get; private set; }
         public TileType Type { get; private set; }

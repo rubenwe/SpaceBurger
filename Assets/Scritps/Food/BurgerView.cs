@@ -15,7 +15,7 @@ namespace Scritps.Food
         {
             var ingredients = new List<Ingredient>
             {
-                Ingredient.RawPatty,
+                Ingredient.RawPatty
             };
 
             _burger = new Burger(ingredients);
@@ -38,6 +38,47 @@ namespace Scritps.Food
             top.Renderer.sprite = _spriteSelector.GetBread()[1]; //TODO: refactor this crap
             top.transform.localPosition = 0.05f * (ingredients.Count -1) * Vector2.up;
             top.Renderer.sortingOrder = ingredients.Count+1;
+
+
+
+            var ingredientsA = new List<Ingredient>
+            {
+                Ingredient.Cheese,
+                Ingredient.CookedPatty
+            };
+            var burgerA = new Burger(ingredientsA);
+            Debug.Log("Burger A: ");
+            foreach (var ingredient in burgerA.CurentIngredients)
+            {
+                Debug.Log(ingredient);
+            }
+
+            
+
+            var ingredientsB = new List<Ingredient>
+            {
+                Ingredient.Bread
+            };
+            var burgerB = new Burger(ingredientsB);
+
+            Debug.Log("Burger B: ");
+            foreach (var ingredient in burgerB.CurentIngredients)
+            {
+                Debug.Log(ingredient);
+            }
+
+            
+
+            var merger = new Merger();
+
+            if (merger.TryToMerge(burgerA, burgerB))
+            {
+                Debug.Log("Merged! Burger B: ");
+                foreach (var ingredient in burgerB.CurentIngredients)
+                {
+                    Debug.Log(ingredient);
+                }
+            }
         }
 
     }

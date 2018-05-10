@@ -2,8 +2,9 @@
 
 namespace Scritps.Environment.Provider
 {
-    public interface IResourceProvider
+    public interface IResourceContainer
     {
+        Ingredient IngredientType { get; }
         long MaxAmount { get; }
         ReactiveProperty<long> CurentAmount { get; }
         Ingredient Take();
