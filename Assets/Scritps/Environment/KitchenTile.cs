@@ -8,7 +8,7 @@ namespace Scritps.Environment
     {
         public Vector2Int Position { get; private set; }
         public TileType Type { get; private set; }
-        public Burger CurentBurger { get; private set; }
+        public Burger CurrentBurger { get; private set; }
 
         private readonly Merger _merger;
 
@@ -16,18 +16,18 @@ namespace Scritps.Environment
         {
             Position = position;
             Type = TileType.Kitchen;
-            CurentBurger = burger;
+            CurrentBurger = burger;
             _merger = new Merger();
         }
 
         public bool TryToDeposit(Burger burger)
         {
-            return _merger.TryToMerge(burger, CurentBurger);
+            return _merger.TryToMerge(burger, CurrentBurger);
         }
 
         public Burger Take()
         {
-            return CurentBurger;
+            return CurrentBurger;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Scritps.Environment;
 using Scritps.ReactiveScripts;
 using UnityEngine;
@@ -12,16 +13,16 @@ namespace Scritps.Food
 
         private Burger _burger;
         private List<IngredientView> _ingredientViews;
+        private int _maxIngredients;
 
         public void Setup(Burger burger)
         {
-            _burger = burger;
-        }
+            _maxIngredients = 20; //TODO: Get burgerData in to use the biggest recipe as upper limit
 
-        private void Start()
-        {
+            _burger = burger;
+
             _ingredientViews = new List<IngredientView>();
-            for (var i = 0; i < 20; i++) //TODO: Get burgerData in to use the biggest recipe as upper limit
+            for (var i = 0; i < _maxIngredients; i++) 
             {
                 var newIngredient = Instantiate(_ingredientPrefab, transform);
                 newIngredient.Renderer.sprite = _spriteSelector.GetIngredientSprite(Ingredient.None);
@@ -31,24 +32,24 @@ namespace Scritps.Food
             }
 
             UpdateView();
-            _burger.CurentIngredients.Subscribe(UpdateView);
+            _burger.CurrentIngredients.Subscribe(UpdateView);
         }
 
         private void UpdateView()
         {
-            var ingredients = _burger.CurentIngredients.Value;
+            var ingredients = _burger.CurrentIngredients.Value;
 
             if (ingredients.Contains(Ingredient.Bread))
             {
                 _ingredientViews[0].Renderer.sprite = _spriteSelector.GetBread()[0];
+                
+                var ingredienstWithoutBread = ingredients.Where(ingr => ingr != Ingredient.Bread).ToList();
 
-                ingredients.Remove(Ingredient.Bread);
-
-                for (var i = 0; i < 19; i++)
+                for (var i = 0; i < _maxIngredients - 1; i++)
                 {
-                    if (i < ingredients.Count)
+                    if (i < ingredienstWithoutBread.Count)
                     {
-                        _ingredientViews[i + 1].Renderer.sprite = _spriteSelector.GetIngredientSprite(ingredients[i]);
+                        _ingredientViews[i + 1].Renderer.sprite = _spriteSelector.GetIngredientSprite(ingredienstWithoutBread[i]);
                     }
                     else
                     {
@@ -56,11 +57,11 @@ namespace Scritps.Food
                     }
                 }
 
-                _ingredientViews[ingredients.Count + 1].Renderer.sprite = _spriteSelector.GetBread()[1];
+                _ingredientViews[ingredienstWithoutBread.Count + 1].Renderer.sprite = _spriteSelector.GetBread()[1];
             }
             else
             {
-                for (var i = 0; i < 20; i++)
+                for (var i = 0; i < _maxIngredients; i++)
                 {
                     if (i < ingredients.Count)
                     {

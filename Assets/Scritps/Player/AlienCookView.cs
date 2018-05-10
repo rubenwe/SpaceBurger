@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using Scritps.Environment;
+using Scritps.Food;
 using Scritps.ReactiveScripts;
 using UnityEngine;
 
@@ -11,10 +12,10 @@ namespace Scritps.Player
         [SerializeField] private Animator _animator;
         private InputHandler _inputHandler;
         private AlienCook _alienCook;
-
-        [SerializeField] private Transform _carryObjectTransform;
-        [SerializeField] private SpriteRenderer _carryObjectRenderer;
-        [SerializeField] private SpriteSelector _spriteSelector;
+        
+        //[SerializeField] private SpriteRenderer _carryObjectRenderer;
+        [SerializeField] private BurgerView _burgerPrefab;
+        [SerializeField] private Transform _burgerTransform;
 
         public void Setup(GridModel grid)
         {
@@ -28,10 +29,8 @@ namespace Scritps.Player
                     CarryObjectPosition(_alienCook.Direction.Value);
                 });
 
-            _alienCook.CurrentIngredient.Subscribe(() =>
-                {
-                    _carryObjectRenderer.sprite = _spriteSelector.GetIngredientSprite(_alienCook.CurrentIngredient.Value);
-                });
+            var newBurger = Instantiate(_burgerPrefab, _burgerTransform);
+            newBurger.Setup(_alienCook.CurrentBurger);
         }
 
         private void Update()
@@ -76,20 +75,17 @@ namespace Scritps.Player
                 case Direction.None:
                     break;
                 case Direction.Up:
-                    _carryObjectTransform.localPosition = Vector2.up * 0.2f;
-                    _carryObjectRenderer.sortingLayerName = "Behind";
+                    _burgerTransform.localPosition = Vector2.up * 0.2f;
+                    //_carryObjectRenderer.sortingLayerName = "Behind";
                     break;
                 case Direction.Right:
-                    _carryObjectTransform.localPosition = Vector2.right * 0.2f;
-                    _carryObjectRenderer.sortingLayerName = "Burger";
+                    _burgerTransform.localPosition = Vector2.right * 0.2f;
                     break;
                 case Direction.Down:
-                    _carryObjectTransform.localPosition = Vector2.down * 0.2f;
-                    _carryObjectRenderer.sortingLayerName = "Burger";
+                    _burgerTransform.localPosition = Vector2.down * 0.2f;
                     break;
                 case Direction.Left:
-                    _carryObjectTransform.localPosition = Vector2.left * 0.2f;
-                    _carryObjectRenderer.sortingLayerName = "Burger";
+                    _burgerTransform.localPosition = Vector2.left * 0.2f;
                     break;
             }
         }

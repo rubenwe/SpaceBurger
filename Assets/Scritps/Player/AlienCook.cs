@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Scritps.Environment;
 using Scritps.Environment.Provider;
 using Scritps.Food;
@@ -12,14 +13,17 @@ namespace Scritps.Player
         private readonly GridModel _gridModel;
         public ReactiveProperty<Vector2Int> Position { get; private set; }
         public ReactiveProperty<Direction> Direction { get; private set; }
-        public ReactiveProperty<Ingredient> CurrentIngredient { get; private set; }
+        public Burger CurrentBurger { get; private set; }
+        private readonly Merger _merger;
 
         public AlienCook(GridModel gridModel)
         {
             _gridModel = gridModel;
             Position = new ReactiveProperty<Vector2Int>(Vector2Int.zero);
             Direction = new ReactiveProperty<Direction>(Player.Direction.None);
-            CurrentIngredient = new ReactiveProperty<Ingredient>(Ingredient.None);
+            CurrentBurger = new Burger(new List<Ingredient>{Ingredient.None});
+
+            _merger = new Merger();
         }
 
         public void TryMove(Direction direction)
@@ -47,66 +51,60 @@ namespace Scritps.Player
             var interactedTile = interactibleTiles.Single(tile => tile.Position == interactionPosition);
 
 
-            //if (interactedTile.Type == TileType.Kitchen)
-            //{
-            //    var cookingTile = (KitchenTile) interactedTile;
+            if (interactedTile.Type == TileType.Kitchen)
+            {
+                var cookingTile = (KitchenTile) interactedTile;
 
-            //    if (CurrentIngredient.Value == Ingredient.None)
-            //    {
-            //        CurrentIngredient.Value = cookingTile.Take();
-            //        return;
-            //    }
+                if (_merger.TryToMerge(cookingTile.CurrentBurger, CurrentBurger))
+                {
 
-            //    if (CurrentIngredient.Value != Ingredient.None)
-            //    {
-            //        CurrentIngredient.Value = cookingTile.TryToDeposit(CurrentIngredient.Value)
-            //            ? Ingredient.None
-            //            : CurrentIngredient.Value;
-            //        return;
-            //    }
+                }
 
 
-            //}
+            }
 
             if (interactedTile.Type == TileType.Box)
             {
-                var box = (Box) interactedTile;
+                var box = (Box)interactedTile;
 
-                if (CurrentIngredient.Value == Ingredient.None)
+    
+                if (!CurrentBurger.HasIngredients())
                 {
-                    CurrentIngredient.Value = box.Take();
+                    CurrentBurger.AddIngredient(box.Take());
                     return;
                 }
-
-                if (CurrentIngredient.Value == box.IngredientType)
+                if (CurrentBurger.CurrentIngredients.Value.Contains(box.IngredientType))
                 {
-                    if (box.Add(1))
+                    var amount = CurrentBurger.CurrentIngredients.Value.Where(ingr => ingr == box.IngredientType)
+                        .ToList().Count;
+
+                    if (box.Add(amount))
                     {
-                        CurrentIngredient.Value = Ingredient.None;
+                        CurrentBurger.UpdateIngredientList(CurrentBurger.CurrentIngredients.Value.Where(ingr => ingr != box.IngredientType).ToList());
                         return;
                     }
                 }
             }
-           
 
-            if (interactedTile.Type == TileType.Pan)
-            {
-                var panTile = (PanTile) interactedTile;
+            //TODO PAN
+            //if (interactedTile.Type == TileType.Pan)
+            //{
+            //    var panTile = (PanTile) interactedTile;
 
-                if (CurrentIngredient.Value == Ingredient.None)
-                {
-                    CurrentIngredient.Value = panTile.Take();
-                    return;
-                }
+            //    if (CurrentBurger.Value == Ingredient.None)
+            //    {
+            //        CurrentBurger.Value = panTile.Take();
+            //        return;
+            //    }
 
-                if (CurrentIngredient.Value == Ingredient.RawPatty )
-                {
-                    CurrentIngredient.Value = panTile.TryToDeposit(CurrentIngredient.Value)
-                        ? Ingredient.None
-                        : CurrentIngredient.Value;
-                    return;
-                }
-            }
+            //    if (CurrentBurger.Value == Ingredient.RawPatty )
+            //    {
+            //        CurrentBurger.Value = panTile.TryToDeposit(CurrentBurger.Value)
+            //            ? Ingredient.None
+            //            : CurrentBurger.Value;
+            //        return;
+            //    }
+            //}
         }
     }
 }

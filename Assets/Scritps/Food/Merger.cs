@@ -24,24 +24,48 @@ namespace Scritps.Food
             }
         }
 
-        public bool TryToMerge(Burger burgerA, Burger burgerB)
+        public bool TryToMerge(Burger burgerOnCook, Burger burgerOnCounter)
         {
-            var resultingIngredients = burgerA.CurentIngredients.Value.Concat(burgerB.CurentIngredients.Value).ToList();
-           
+            var burgerOnCookingr = burgerOnCook.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.None).ToList();
+            var burgerOnCounteringr = burgerOnCounter.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.None).ToList();
+
+            var resultingIngredients = burgerOnCookingr.Concat(burgerOnCounteringr).ToList();
+
+            if (burgerOnCookingr.Count == 0 && burgerOnCounteringr.Count > 0)
+            {
+                burgerOnCounter.UpdateIngredientList(new List<Ingredient> { Ingredient.None });
+                burgerOnCook.UpdateIngredientList(resultingIngredients);
+                return true;
+            }
+
+            if (burgerOnCookingr.Count > 0 && burgerOnCounteringr.Count == 0)
+            {
+                burgerOnCook.UpdateIngredientList(new List<Ingredient> { Ingredient.None });
+                burgerOnCounter.UpdateIngredientList(resultingIngredients);
+                return true;
+            }
+
             foreach (var recipe in _recipes)
             {
-                _mergable = recipe.Any(resultingIngredients.Contains);
+                _mergable = !resultingIngredients.Except(recipe).Any();
 
                 if (_mergable)
                 {
-                    burgerA.Destroy();
-                    burgerB.UpdateIngredientList(resultingIngredients);
-
+                    burgerOnCounter.UpdateIngredientList(new List<Ingredient> { Ingredient.None });
+                    burgerOnCook.UpdateIngredientList(resultingIngredients);
                     return _mergable;
                 }
             }
 
             return _mergable;
+        }
+    }
+
+    public static class LinqExtras // Or whatever
+    {
+        public static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
+        {
+            return !b.Except(a).Any();
         }
     }
 }

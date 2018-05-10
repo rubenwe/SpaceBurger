@@ -8,7 +8,7 @@ namespace Scritps.Food
     {
         public BurgerData()
         {
-            Ids = new List<int> {1,2,3,4};
+            Ids = new List<int> {0,1,2,3,4};
         }
 
         public List<int> Ids { get; private set; }
@@ -17,6 +17,8 @@ namespace Scritps.Food
         {
             switch (id)
             {
+                case 0:
+                    return "Empty Burger";
                 case 1:
                     return "Burger";
                 case 2:
@@ -34,6 +36,8 @@ namespace Scritps.Food
         {
             switch (id)
             {
+                case 0:
+                    return new List<Ingredient> { Ingredient.None };
                 case 1:
                     return new List<Ingredient> { Ingredient.Bread,Ingredient.CookedPatty };
                 case 2:

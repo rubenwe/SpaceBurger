@@ -27,10 +27,10 @@ namespace Scritps.Environment
                 new Floor(new Vector2Int(1, 1)),
                 new Floor(new Vector2Int(2, 1)),
                 new Floor(new Vector2Int(3, 1)),
-                new KitchenTile(new Vector2Int(0, 2), new Burger(new List<Ingredient>{Ingredient.RawPatty})),
+                new KitchenTile(new Vector2Int(0, 2), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
                 new Box(new Vector2Int(1, 2),10,20, Ingredient.Bread),
                 new Box(new Vector2Int(2, 2),12,20, Ingredient.RawPatty),
-                new KitchenTile(new Vector2Int(3, 2), new Burger(new List<Ingredient>{Ingredient.None})),
+                new KitchenTile(new Vector2Int(3, 2), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
                 new KitchenTile(new Vector2Int(0, 3), new Burger(new List<Ingredient>{Ingredient.Bread})),
                 new KitchenTile(new Vector2Int(1, 3), new Burger(new List<Ingredient>{Ingredient.CookedPatty,Ingredient.CookedPatty,Ingredient.CookedPatty}))
             };

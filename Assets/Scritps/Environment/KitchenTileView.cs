@@ -25,20 +25,7 @@ namespace Scritps.Environment
 
 
             var newBurger = Instantiate(_burgerPrefab, _burgerTransform);
-            newBurger.Setup(_kitchenTile.CurentBurger);     
-        }
-
-        private void SetSprite()
-        {
-            //_resourceRenderer.sprite = _spriteSelector.GetIngredientSprite(_kitchenTile.CurentBurger.Value);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _kitchenTile.CurentBurger.UpdateIngredientList(new List<Ingredient> { Ingredient.RawPatty });
-            }
+            newBurger.Setup(_kitchenTile.CurrentBurger);     
         }
     }
 }
