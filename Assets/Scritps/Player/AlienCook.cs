@@ -46,26 +46,27 @@ namespace Scritps.Player
 
             var interactedTile = interactibleTiles.Single(tile => tile.Position == interactionPosition);
 
-            if (interactedTile.Type == TileType.Kitchen)
-            {
-                var cookingTile = (KitchenTile) interactedTile;
 
-                if (CurrentIngredient.Value == Ingredient.None)
-                {
-                    CurrentIngredient.Value = cookingTile.Take();
-                    return;
-                }
+            //if (interactedTile.Type == TileType.Kitchen)
+            //{
+            //    var cookingTile = (KitchenTile) interactedTile;
 
-                if (CurrentIngredient.Value != Ingredient.None)
-                {
-                    CurrentIngredient.Value = cookingTile.TryToDeposit(CurrentIngredient.Value)
-                        ? Ingredient.None
-                        : CurrentIngredient.Value;
-                    return;
-                }
+            //    if (CurrentIngredient.Value == Ingredient.None)
+            //    {
+            //        CurrentIngredient.Value = cookingTile.Take();
+            //        return;
+            //    }
 
-                
-            }
+            //    if (CurrentIngredient.Value != Ingredient.None)
+            //    {
+            //        CurrentIngredient.Value = cookingTile.TryToDeposit(CurrentIngredient.Value)
+            //            ? Ingredient.None
+            //            : CurrentIngredient.Value;
+            //        return;
+            //    }
+
+
+            //}
 
             if (interactedTile.Type == TileType.Box)
             {

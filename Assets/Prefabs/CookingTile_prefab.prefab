@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114514955202790520}
   - component: {fileID: 212067721992813460}
   m_Layer: 0
-  m_Name: KitchenTile_prefab
+  m_Name: CookingTile_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,9 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4024740862798606}
-  - component: {fileID: 212192484609624838}
   m_Layer: 0
-  m_Name: Item
+  m_Name: BurgerTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,8 +82,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tileRenderer: {fileID: 212067721992813460}
-  _resourceRenderer: {fileID: 212192484609624838}
+  _resourceRenderer: {fileID: 0}
   _spriteSelector: {fileID: 11400000, guid: 713e7ab9b2cd16545b52b7c96ffe2cd7, type: 2}
+  _burgerPrefab: {fileID: 114193972730562904, guid: 45bf1ea64cf22544f8a249cc31da43f0,
+    type: 2}
+  _burgerTransform: {fileID: 4024740862798606}
 --- !u!212 &212067721992813460
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -128,48 +130,4 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
---- !u!212 &212192484609624838
-SpriteRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1597977049234854}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1075017743
-  m_SortingLayer: 3
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.73142856, y: 0.73142856}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

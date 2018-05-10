@@ -26,7 +26,7 @@ namespace Scritps.Food
 
         public bool TryToMerge(Burger burgerA, Burger burgerB)
         {
-            var resultingIngredients = burgerA.CurentIngredients.Concat(burgerB.CurentIngredients).ToList();
+            var resultingIngredients = burgerA.CurentIngredients.Value.Concat(burgerB.CurentIngredients.Value).ToList();
            
             foreach (var recipe in _recipes)
             {

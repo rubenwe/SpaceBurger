@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Scritps.Environment;
+using Scritps.ReactiveScripts;
 using UnityEngine;
 
 namespace Scritps.Food
 {
     public class Burger 
     {
-        public List<Ingredient> CurentIngredients { get; private set; }
+        public ReactiveProperty<List<Ingredient>> CurentIngredients { get; private set; }
 
         public Burger(List<Ingredient> ingredients)
         {
-            CurentIngredients = ingredients;
+            CurentIngredients = new ReactiveProperty<List<Ingredient>>(ingredients);
         }
 
         public void UpdateIngredientList(List<Ingredient> newIngredients)
         {
-            CurentIngredients = newIngredients;
+            CurentIngredients.Value = newIngredients;
         }
 
         public void Destroy()
