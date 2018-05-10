@@ -26,46 +26,48 @@ namespace Scritps.Food
 
         public bool TryToMerge(Burger burgerOnCook, Burger burgerOnCounter)
         {
-            var burgerOnCookingr = burgerOnCook.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.None).ToList();
-            var burgerOnCounteringr = burgerOnCounter.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.None).ToList();
+            var burgerOnCookingr =
+                burgerOnCook.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.None).ToList();
+            var burgerOnCounteringr =
+                burgerOnCounter.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.None).ToList();
 
             var resultingIngredients = burgerOnCookingr.Concat(burgerOnCounteringr).ToList();
 
             if (burgerOnCookingr.Count == 0 && burgerOnCounteringr.Count > 0)
             {
-                burgerOnCounter.UpdateIngredientList(new List<Ingredient> { Ingredient.None });
+                burgerOnCounter.UpdateIngredientList(new List<Ingredient> {Ingredient.None});
                 burgerOnCook.UpdateIngredientList(resultingIngredients);
                 return true;
             }
 
             if (burgerOnCookingr.Count > 0 && burgerOnCounteringr.Count == 0)
             {
-                burgerOnCook.UpdateIngredientList(new List<Ingredient> { Ingredient.None });
+                burgerOnCook.UpdateIngredientList(new List<Ingredient> {Ingredient.None});
                 burgerOnCounter.UpdateIngredientList(resultingIngredients);
                 return true;
             }
 
             foreach (var recipe in _recipes)
             {
-                _mergable = !resultingIngredients.Except(recipe).Any();
+                // Dictionary [Ingredient, Amount of Ingredient in Recipe]
+                var countOfIngredient = recipe
+                    .ToLookup(i => i)
+                    .ToDictionary(grp => grp.Key, grp => grp.Count());
+
+                // Check Recipe contains ingredient and ingredient count is sufficient.
+                _mergable = resultingIngredients.All(i => countOfIngredient.ContainsKey(i) && --countOfIngredient[i] >= 0);
+
 
                 if (_mergable)
                 {
-                    burgerOnCounter.UpdateIngredientList(new List<Ingredient> { Ingredient.None });
-                    burgerOnCook.UpdateIngredientList(resultingIngredients);
+                    Debug.Log("Merged!");
+                    burgerOnCook.UpdateIngredientList(new List<Ingredient> {Ingredient.None});
+                    burgerOnCounter.UpdateIngredientList(resultingIngredients);
                     return _mergable;
                 }
             }
 
             return _mergable;
-        }
-    }
-
-    public static class LinqExtras // Or whatever
-    {
-        public static bool ContainsAllItems<T>(IEnumerable<T> a, IEnumerable<T> b)
-        {
-            return !b.Except(a).Any();
         }
     }
 }

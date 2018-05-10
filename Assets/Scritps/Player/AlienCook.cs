@@ -55,18 +55,15 @@ namespace Scritps.Player
             {
                 var cookingTile = (KitchenTile) interactedTile;
 
-                if (_merger.TryToMerge(cookingTile.CurrentBurger, CurrentBurger))
+                if (_merger.TryToMerge( CurrentBurger, cookingTile.CurrentBurger))
                 {
 
                 }
-
-
             }
 
             if (interactedTile.Type == TileType.Box)
             {
                 var box = (Box)interactedTile;
-
     
                 if (!CurrentBurger.HasIngredients())
                 {
@@ -86,25 +83,26 @@ namespace Scritps.Player
                 }
             }
 
-            //TODO PAN
-            //if (interactedTile.Type == TileType.Pan)
-            //{
-            //    var panTile = (PanTile) interactedTile;
 
-            //    if (CurrentBurger.Value == Ingredient.None)
-            //    {
-            //        CurrentBurger.Value = panTile.Take();
-            //        return;
-            //    }
+            if (interactedTile.Type == TileType.Pan)
+            {
+                var panTile = (PanTile)interactedTile;
 
-            //    if (CurrentBurger.Value == Ingredient.RawPatty )
-            //    {
-            //        CurrentBurger.Value = panTile.TryToDeposit(CurrentBurger.Value)
-            //            ? Ingredient.None
-            //            : CurrentBurger.Value;
-            //        return;
-            //    }
-            //}
+                if (panTile.CurentResourceType.Value == Ingredient.CookedPatty)
+                {
+                    _merger.TryToMerge( new Burger(new List<Ingredient> {Ingredient.CookedPatty}),CurrentBurger);
+                    panTile.CurentResourceType.Value = Ingredient.None;
+                    return;
+                }
+
+                if (CurrentBurger.CurrentIngredients.Value.Contains(Ingredient.RawPatty))
+                {
+                    if (panTile.TryToDeposit(Ingredient.RawPatty))
+                    {
+                        CurrentBurger.UpdateIngredientList(CurrentBurger.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.RawPatty).ToList());
+                    }
+                }
+            }
         }
     }
 }

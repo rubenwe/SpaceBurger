@@ -19,6 +19,9 @@ namespace Scritps.Environment
             var tiles = new List<ITile>
             {
                 new PanTile(new Vector2Int(0, -1)),
+                new KitchenTile(new Vector2Int(1, -1), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
+                new KitchenTile(new Vector2Int(2, -1), new Burger(new List<Ingredient>{Ingredient.Bread, Ingredient.CookedPatty })),
+                new KitchenTile(new Vector2Int(3, -1), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
                 new Floor(new Vector2Int(0, 0)),
                 new Floor(new Vector2Int(1, 0)),
                 new Floor(new Vector2Int(2, 0)),

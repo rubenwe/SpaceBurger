@@ -13,7 +13,6 @@ namespace Scritps.Player
         private InputHandler _inputHandler;
         private AlienCook _alienCook;
         
-        //[SerializeField] private SpriteRenderer _carryObjectRenderer;
         [SerializeField] private BurgerView _burgerPrefab;
         [SerializeField] private Transform _burgerTransform;
 
@@ -66,7 +65,6 @@ namespace Scritps.Player
                     break;
             }
         }
-
 
         private void CarryObjectPosition(Direction direction)
         {
