@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f1a7f8a0974e0baea4634c8a2c7be2, type: 3}
+  m_Name: SpriteSelector
+  m_EditorClassIdentifier: 
+  _rawPatty: {fileID: 21300000, guid: e0bcf7592c008b0498ad588635633712, type: 3}
+  _cookedPatty: {fileID: 21300000, guid: c1f35dcd62216b54594d3489390cde9a, type: 3}
+  _bread: {fileID: 21300000, guid: 7edbdb156fd9b1e4da9c31df54d3879e, type: 3}
+  _breatTop: {fileID: 21300000, guid: da002d88eba911d4896e45114e7e81b7, type: 3}
+  _breatBottom: {fileID: 21300000, guid: 6fd1197876936004a8bd2d727af31daf, type: 3}
+  _breadBoxSprite: {fileID: 21300000, guid: 4929f87e61b30a24ba3e032af92d0d80, type: 3}
+  _meatBoxSprite: {fileID: 21300000, guid: 1e384431e0983df4d92ceb05865172bc, type: 3}
