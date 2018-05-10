@@ -60,7 +60,6 @@ namespace Scritps.Food
 
                 if (_mergable)
                 {
-                    Debug.Log("Merged!");
                     burgerOnCook.UpdateIngredientList(new List<Ingredient> {Ingredient.None});
                     burgerOnCounter.UpdateIngredientList(resultingIngredients);
                     return _mergable;

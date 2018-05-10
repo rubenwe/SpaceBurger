@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Scritps.Environment;
 using Scritps.Environment.Provider;
@@ -15,6 +16,8 @@ namespace Scritps.Player
         public ReactiveProperty<Direction> Direction { get; private set; }
         public Burger CurrentBurger { get; private set; }
         private readonly Merger _merger;
+
+        private float  _moveTimer = 0f;
 
         public AlienCook(GridModel gridModel)
         {
@@ -39,15 +42,22 @@ namespace Scritps.Player
             }
         }
 
-        public void TryToInteract() //TODO: NEEDS REFACTORIN!! Does not scale for more starting resources
+        public void TryToInteract(ITile currentTile) //TODO: NEEDS REFACTORIN!! Does not scale for more starting resources
         {
+            if (currentTile == null)
+            {
+                return;
+            }
+
+            SetDirectionWithVector(currentTile.Position);
+
             var interactionPosition = Position.Value + Direction.Value.ToVector();
             var interactibleTiles = _gridModel.GetInteractibleTiles();
 
 
             if (interactibleTiles.All(tile => tile.Position != interactionPosition))
                 return;
-
+            
             var interactedTile = interactibleTiles.Single(tile => tile.Position == interactionPosition);
 
 
@@ -102,6 +112,57 @@ namespace Scritps.Player
                         CurrentBurger.UpdateIngredientList(CurrentBurger.CurrentIngredients.Value.Where(ingr => ingr != Ingredient.RawPatty).ToList());
                     }
                 }
+            }
+        }
+
+        public void Move(float deltaTime, List<Vector2Int> path)
+        {
+            if(path.Count == 0)
+                return;
+
+            var nextPos = path[0];
+
+            _moveTimer += deltaTime;
+
+            if (_moveTimer > 0.1f)
+            {
+                SetDirectionWithVector(nextPos);
+
+                Position.Value = nextPos;
+                
+                path.RemoveAt(0);
+                _moveTimer = 0;
+            }
+        }
+
+        private void SetDirectionWithVector(Vector2Int pos)
+        {
+            var newPos = pos - Position.Value;
+
+            if (Mathf.Abs(newPos.x) > 1)
+            {
+                newPos.x = newPos.x / newPos.x;
+            }
+            if (Mathf.Abs(newPos.y) > 1)
+            {
+                newPos.y = newPos.y / newPos.y;
+            }
+
+            if (newPos == Vector2Int.up)
+            {
+                Direction.Value = Player.Direction.Up;
+            }
+            else if (newPos == Vector2Int.right)
+            {
+                Direction.Value = Player.Direction.Right;
+            }
+            else if (newPos == Vector2Int.down)
+            {
+                Direction.Value = Player.Direction.Down;
+            }
+            else if (newPos == Vector2Int.left)
+            {
+                Direction.Value = Player.Direction.Left;
             }
         }
     }

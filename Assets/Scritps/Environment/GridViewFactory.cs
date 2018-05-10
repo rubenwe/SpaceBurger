@@ -18,24 +18,30 @@ namespace Scritps.Environment
         {
             var tiles = new List<ITile>
             {
-                new PanTile(new Vector2Int(0, -1)),
-                new KitchenTile(new Vector2Int(1, -1), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
-                new KitchenTile(new Vector2Int(2, -1), new Burger(new List<Ingredient>{Ingredient.Bread, Ingredient.CookedPatty })),
-                new KitchenTile(new Vector2Int(3, -1), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
+                new KitchenTile(new Vector2Int(0, -2), new Burger(new List<Ingredient>{Ingredient.None})),
+                new KitchenTile(new Vector2Int(1, -2), new Burger(new List<Ingredient>{Ingredient.None})),
+                new KitchenTile(new Vector2Int(2, -2), new Burger(new List<Ingredient>{Ingredient.None})),
+                new KitchenTile(new Vector2Int(3, -2), new Burger(new List<Ingredient>{Ingredient.None})),
+                new Floor(new Vector2Int(0, -1)),
+                new Floor(new Vector2Int(1, -1)),
+                new Floor(new Vector2Int(2, -1)),
+                new Floor(new Vector2Int(3, -1)),
                 new Floor(new Vector2Int(0, 0)),
                 new Floor(new Vector2Int(1, 0)),
-                new Floor(new Vector2Int(2, 0)),
-                new KitchenTile(new Vector2Int(3, 0), new Burger(new List<Ingredient>{Ingredient.Bread})),
+                new KitchenTile(new Vector2Int(2,0), new Burger(new List<Ingredient>{Ingredient.None})),
+                new PanTile(new Vector2Int(3, 0)),
                 new Floor(new Vector2Int(0, 1)),
                 new Floor(new Vector2Int(1, 1)),
                 new Floor(new Vector2Int(2, 1)),
                 new Floor(new Vector2Int(3, 1)),
-                new KitchenTile(new Vector2Int(0, 2), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
+                new Floor(new Vector2Int(0, 2)),
                 new Box(new Vector2Int(1, 2),10,20, Ingredient.Bread),
                 new Box(new Vector2Int(2, 2),12,20, Ingredient.RawPatty),
-                new KitchenTile(new Vector2Int(3, 2), new Burger(new List<Ingredient>{Ingredient.CookedPatty})),
-                new KitchenTile(new Vector2Int(0, 3), new Burger(new List<Ingredient>{Ingredient.Bread})),
-                new KitchenTile(new Vector2Int(1, 3), new Burger(new List<Ingredient>{Ingredient.CookedPatty,Ingredient.CookedPatty,Ingredient.CookedPatty}))
+                new Floor(new Vector2Int(3, 2)),
+                new Floor(new Vector2Int(0, 3)),
+                new Floor(new Vector2Int(1, 3)),
+                new Floor(new Vector2Int(2, 3)),
+                new Floor(new Vector2Int(3, 3))
             };
 
             var grid = new GridModel(tiles);

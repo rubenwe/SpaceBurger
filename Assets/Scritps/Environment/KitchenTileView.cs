@@ -19,7 +19,6 @@ namespace Scritps.Environment
         public void Setup(KitchenTile tile)
         {
             _kitchenTile = tile;
-            Debug.Log(_kitchenTile);
             transform.position = (Vector2)tile.Position;
             _tileRenderer.sortingOrder = - tile.Position.y;
 
