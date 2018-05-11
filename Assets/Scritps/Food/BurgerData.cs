@@ -8,7 +8,7 @@ namespace Scritps.Food
     {
         public BurgerData()
         {
-            Ids = new List<int> {0,1,2,3,4};
+            Ids = new List<int> {0,1,2,3,4,5};
         }
 
         public List<int> Ids { get; private set; }
@@ -27,6 +27,8 @@ namespace Scritps.Food
                     return "Cheese Burger with Tomato";
                 case 4:
                     return "Double Burger";
+                case 5:
+                    return "---";
                 default:
                     throw new ArgumentException();
             }
@@ -46,6 +48,8 @@ namespace Scritps.Food
                     return new List<Ingredient> { Ingredient.Bread, Ingredient.CookedPatty, Ingredient.Cheese, Ingredient.Tomato };
                 case 4:
                     return new List<Ingredient> { Ingredient.Bread, Ingredient.CookedPatty, Ingredient.CookedPatty };
+                case 5:
+                    return new List<Ingredient> { Ingredient.Bread, Ingredient.CookedPatty, Ingredient.Cheese, Ingredient.Tomato, Ingredient.Salad };
                 default:
                     throw new ArgumentException();
             }

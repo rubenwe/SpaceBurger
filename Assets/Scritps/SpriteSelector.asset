@@ -13,8 +13,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rawPatty: {fileID: 21300000, guid: e0bcf7592c008b0498ad588635633712, type: 3}
   _cookedPatty: {fileID: 21300000, guid: c1f35dcd62216b54594d3489390cde9a, type: 3}
+  _tomato: {fileID: 21300000, guid: 99c7c175b73dd1e45859a47311eb2194, type: 3}
+  _salad: {fileID: 21300000, guid: bdf807471c7aa3941a9bd24abf71a406, type: 3}
+  _cheese: {fileID: 21300000, guid: 97003841aa60e04489b648470b60a7fd, type: 3}
   _bread: {fileID: 21300000, guid: 7edbdb156fd9b1e4da9c31df54d3879e, type: 3}
   _breatTop: {fileID: 21300000, guid: da002d88eba911d4896e45114e7e81b7, type: 3}
   _breatBottom: {fileID: 21300000, guid: 6fd1197876936004a8bd2d727af31daf, type: 3}
   _breadBoxSprite: {fileID: 21300000, guid: 4929f87e61b30a24ba3e032af92d0d80, type: 3}
   _meatBoxSprite: {fileID: 21300000, guid: 1e384431e0983df4d92ceb05865172bc, type: 3}
+  _tomatoBoxSprite: {fileID: 21300000, guid: 893c7bcae8cee9d41a98b7abf8d3472a, type: 3}
+  _cheeseBoxSprite: {fileID: 21300000, guid: 8e7ca1b85300d4b44ba8192f2169e19f, type: 3}
+  _saladBoxSprite: {fileID: 21300000, guid: 01d07f5895b3e394d934bcb4cfc9b6aa, type: 3}

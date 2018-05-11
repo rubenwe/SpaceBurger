@@ -41,7 +41,11 @@ namespace Scritps.Environment
                 new Floor(new Vector2Int(0, 3)),
                 new Floor(new Vector2Int(1, 3)),
                 new Floor(new Vector2Int(2, 3)),
-                new Floor(new Vector2Int(3, 3))
+                new Floor(new Vector2Int(3, 3)),
+                new Floor(new Vector2Int(0, 4)),
+                new Box(new Vector2Int(1, 4),10,20,Ingredient.Salad),
+                new Box(new Vector2Int(2, 4),10,20,Ingredient.Cheese),
+                new Box(new Vector2Int(3, 4),10,20,Ingredient.Tomato),
             };
 
             var grid = new GridModel(tiles);

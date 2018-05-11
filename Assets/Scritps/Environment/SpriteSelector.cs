@@ -8,12 +8,18 @@ namespace Scritps.Environment
     {
         [SerializeField] private Sprite _rawPatty;
         [SerializeField] private Sprite _cookedPatty;
+        [SerializeField] private Sprite _tomato;
+        [SerializeField] private Sprite _salad;
+        [SerializeField] private Sprite _cheese;
         [SerializeField] private Sprite _bread;
         [SerializeField] private Sprite _breatTop;
         [SerializeField] private Sprite _breatBottom;
 
         [SerializeField] private Sprite _breadBoxSprite;
         [SerializeField] private Sprite _meatBoxSprite;
+        [SerializeField] private Sprite _tomatoBoxSprite;
+        [SerializeField] private Sprite _cheeseBoxSprite;
+        [SerializeField] private Sprite _saladBoxSprite;
 
 
 
@@ -30,11 +36,11 @@ namespace Scritps.Environment
                 case Ingredient.CookedPatty:
                     return _cookedPatty;
                 case Ingredient.Salad:
-                    return null;
+                    return _salad;
                 case Ingredient.Tomato:
-                    return null;
+                    return _tomato;
                 case Ingredient.Cheese:
-                    return null;
+                    return _cheese;
                 case Ingredient.Pickles:
                     return null;
                 default:
@@ -50,6 +56,12 @@ namespace Scritps.Environment
                     return _breadBoxSprite;
                 case Ingredient.RawPatty:
                     return _meatBoxSprite;
+                case Ingredient.Tomato:
+                    return _tomatoBoxSprite;
+                case Ingredient.Cheese:
+                    return _cheeseBoxSprite;
+                case Ingredient.Salad:
+                    return _saladBoxSprite;
             }
 
             throw new ArgumentException();
