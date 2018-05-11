@@ -7,11 +7,13 @@ namespace Scritps.Environment
 {
     public class GridModel
     {
-        private List<ITile> _tiles;
+        private readonly List<ITile> _tiles;
+        private List<Vector2Int> _crossDirections;
 
         public GridModel(List<ITile> tiles)
         {
             _tiles = tiles;
+            _crossDirections = new List<Vector2Int> { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
         }
 
         public List<ITile> GetAllTiles()
@@ -51,6 +53,47 @@ namespace Scritps.Environment
             }
 
             return neighbourTiles;
+        }
+
+
+        public ITile GetClosestFloorTile(Vector2Int currentPos, ITile targetTile)
+        {
+            if (targetTile.Type == TileType.Floor)
+            {
+                return targetTile;
+            }
+
+            var offSet = 0;
+            var direction = currentPos - targetTile.Position;
+
+            if (direction.y > 0)
+            {
+                offSet = 0;
+            }
+            else if (direction.x > 0)
+            {
+                offSet = 1;
+            }
+            else if (direction.y < 0)
+            {
+                offSet = 2;
+            }
+            else if (direction.x < 0)
+            {
+                offSet = 3;
+            }
+
+            for (var i = 0; i < _crossDirections.Count; i++)
+            {
+                var crossDirection = _crossDirections[(i+offSet)%4];
+                var dir = crossDirection;
+                if (GetEmptyTiles().Any(tile => tile.Position == targetTile.Position + dir))
+                {
+                    return GetEmptyTiles().Single(tile => tile.Position == targetTile.Position + dir);
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Scritps.Environment;
 using Scritps.Food;
@@ -19,6 +20,11 @@ namespace Scritps.Player
         private Pathfinder _pathfinder;
         private List<Vector2Int> _path;
 
+        //--------------------------------
+        private GridModel _grid;
+        //-------------------------------
+
+
         public void Setup(GridModel grid)
         {
             _inputHandler = new InputHandler(grid);
@@ -36,6 +42,8 @@ namespace Scritps.Player
 
             _pathfinder = new Pathfinder(grid);
             _path = new List<Vector2Int> ();
+
+            _grid = grid;
         }
 
         private void Update()
@@ -45,13 +53,7 @@ namespace Scritps.Player
                 _alienCook.TryMove(_inputHandler.GetArrowDirection());
             }
 
-            //_inputHandler.IsTryingToInteract(() =>
-            //{
-            //    _alienCook.TryToInteract();
-            //});
-
             _alienCook.Move(Time.deltaTime, _path);
-            
 
             if (_inputHandler.ClickedTile() != null)
             {
@@ -61,6 +63,14 @@ namespace Scritps.Player
                     currentTile.Type == TileType.Kitchen ||
                     currentTile.Type == TileType.Pan)
                 {
+                    var closestFloorTile = _grid.GetClosestFloorTile(_alienCook.Position.Value, currentTile);
+
+                    if (closestFloorTile != null)
+                    {
+                        _pathfinder.FindPath(_alienCook.Position.Value, closestFloorTile.Position);
+                        _path = _pathfinder.Path;
+                    }
+
                     _alienCook.TryToInteract(currentTile);
                 }
                 
@@ -71,7 +81,6 @@ namespace Scritps.Player
                     _path = _pathfinder.Path;
                 }
             }
-
         }
 
         private void AnimationSelector(Direction direction)

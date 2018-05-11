@@ -42,24 +42,20 @@ namespace Scritps.Player
             }
         }
 
-        public void TryToInteract(ITile currentTile) //TODO: NEEDS REFACTORIN!! Does not scale for more starting resources
+        public void TryToInteract(ITile interactedTile) //TODO: NEEDS REFACTORIN!! Does not scale for more starting resources
         {
-            if (currentTile == null)
+            if (interactedTile == null)
             {
                 return;
             }
 
-            SetDirectionWithVector(currentTile.Position);
-
-            var interactionPosition = Position.Value + Direction.Value.ToVector();
-            var interactibleTiles = _gridModel.GetInteractibleTiles();
-
-
-            if (interactibleTiles.All(tile => tile.Position != interactionPosition))
+            if ((interactedTile.Position.x - Position.Value.x)*(interactedTile.Position.x - Position.Value.x) +
+                (interactedTile.Position.y - Position.Value.y) * (interactedTile.Position.y - Position.Value.y) > 1)
+            {
                 return;
-            
-            var interactedTile = interactibleTiles.Single(tile => tile.Position == interactionPosition);
+            }
 
+            SetDirectionWithVector(interactedTile.Position);
 
             if (interactedTile.Type == TileType.Kitchen)
             {
@@ -117,7 +113,7 @@ namespace Scritps.Player
 
         public void Move(float deltaTime, List<Vector2Int> path)
         {
-            if(path.Count == 0)
+            if (path.Count == 0)
                 return;
 
             var nextPos = path[0];
